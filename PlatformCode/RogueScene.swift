@@ -20,7 +20,7 @@ import GameplayKit
     
     fileprivate var cells = [[Cell]]()
     fileprivate var textureMap: [String : SKTexture] = [:]
-    var aEvent: NSEvent?
+    @objc var aEvent: NSEvent?
 
     // We don't want small letters scaled to huge proportions, so we only allow letters to stretch 
     // within a certain range (e.g. size of M +/- 20%)
@@ -28,11 +28,11 @@ import GameplayKit
         let char: NSString = "M" // Good letter to do the base calculations from
         let calcBounds: CGRect = char.boundingRect(with: NSMakeSize(0, 0),
                                                    options: [.usesDeviceMetrics, .usesFontLeading],
-                                                   attributes: [NSFontAttributeName: NSFont(name: "Arial Unicode MS", size: 120)!])
+                                                   attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): NSFont(name: "Arial Unicode MS", size: 120)!]))
         return min(self.cellWidth / calcBounds.width, self.cellHeight / calcBounds.height)
     }()
     
-    public init(size: CGSize, rows: Int, cols: Int) {
+    @objc public init(size: CGSize, rows: Int, cols: Int) {
         initialSize = size
         self.rows = rows
         self.cols = cols
@@ -64,7 +64,7 @@ import GameplayKit
 }
 
 extension RogueScene {
-    public func setCell(x: Int, y: Int, code: UInt32, bgColor: CGColor, fgColor: CGColor) {
+    @objc public func setCell(x: Int, y: Int, code: UInt32, bgColor: CGColor, fgColor: CGColor) {
         cells[x][y].fgcolor = SKColor(cgColor: fgColor)!
         cells[x][y].bgcolor = SKColor(cgColor: bgColor)!
         
@@ -145,7 +145,7 @@ fileprivate extension RogueScene {
                 }
             }
             
-            var drawingOptions: NSStringDrawingOptions {
+            var drawingOptions: NSString.DrawingOptions {
                 switch self {
                 case .letter:
                     return [.usesFontLeading]
@@ -195,10 +195,10 @@ fileprivate extension RogueScene {
         var surface: NSImage {
             // Calculate font scale factor
             var scaleFactor: CGFloat {
-                let calcAttributes = [NSFontAttributeName: calcFont]
+                let calcAttributes = [convertFromNSAttributedStringKey(NSAttributedString.Key.font): calcFont]
                 // If we calculate with the descender, the line height will be centered incorrectly for letters
                 let calcOptions = glyphType.drawingOptions
-                let calcBounds = text.boundingRect(with: NSMakeSize(0, 0), options: calcOptions, attributes: calcAttributes)
+                let calcBounds = text.boundingRect(with: NSMakeSize(0, 0), options: calcOptions, attributes: convertToOptionalNSAttributedStringKeyDictionary(calcAttributes))
                 let rawScaleFactor = min(size.width / calcBounds.width, size.height / calcBounds.height)
                 let clampedScaleFactor = max(maxScaleFactor * 0.8, min(rawScaleFactor, maxScaleFactor * 1.2)) // Within 20% of original
                 
@@ -208,16 +208,16 @@ fileprivate extension RogueScene {
             // Actual font that we're going to render
             let font = NSFont(name: glyphType.fontName, size: fontSize * scaleFactor)!
             let fontAttributes = [
-                NSFontAttributeName: font,
-                NSForegroundColorAttributeName: SKColor.white // White so we can blend it
+                convertFromNSAttributedStringKey(NSAttributedString.Key.font): font,
+                convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): SKColor.white // White so we can blend it
             ]
             
-            let realBounds: CGRect = text.boundingRect(with: NSMakeSize(0, 0), options: glyphType.drawingOptions, attributes: fontAttributes)
+            let realBounds: CGRect = text.boundingRect(with: NSMakeSize(0, 0), options: glyphType.drawingOptions, attributes: convertToOptionalNSAttributedStringKeyDictionary(fontAttributes))
             let stringOrigin = NSMakePoint((size.width - realBounds.width)/2 - realBounds.origin.x,
                                            font.descender - realBounds.origin.y + (size.height - realBounds.height)/2)
             let surface = NSImage(size: size)
             surface.lockFocus()
-            text.draw(at: stringOrigin, withAttributes: fontAttributes)
+            text.draw(at: stringOrigin, withAttributes: convertToOptionalNSAttributedStringKeyDictionary(fontAttributes))
             surface.unlockFocus()
             return surface
         }
@@ -228,4 +228,15 @@ fileprivate extension RogueScene {
     func addTexture(glyph: String) {
         textureMap[glyph] = createTextureFromGlyph(glyph: glyph, size: CGSize(width: cellWidth, height: cellHeight))
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

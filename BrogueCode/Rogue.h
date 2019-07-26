@@ -2581,7 +2581,7 @@ extern "C" {
     
     unsigned fp_sqrt(unsigned val);
 	
-	void rogueMain();
+	void rogueMain(void);
 	void executeEvent(rogueEvent *theEvent);
 	boolean fileExists(const char *pathname);
 	boolean chooseFile(char *path, char *prompt, char *defaultName, char *suffix);
@@ -2589,7 +2589,7 @@ extern "C" {
 	void initializeRogue(unsigned long seed);
 	void gameOver(char *killedBy, boolean useCustomPhrasing);
     void victory(boolean superVictory);
-	void enableEasyMode();
+	void enableEasyMode(void);
 	int rand_range(int lowerBound, int upperBound);
 	unsigned long seedRandomGenerator(unsigned long seed);
 	short randClumpedRange(short lowerBound, short upperBound, short clumpFactor);
@@ -2598,9 +2598,9 @@ extern "C" {
 	void shuffleList(short *list, short listLength);
     void fillSequentialList(short *list, short listLength);
 	short unflag(unsigned long flag);
-	void considerCautiousMode();
-	void refreshScreen();
-	void displayLevel();
+	void considerCautiousMode(void);
+	void refreshScreen(void);
+	void displayLevel(void);
 	void storeColorComponents(char components[3], const color *theColor);
 	boolean separateColors(color *fore, color *back);
 	void bakeColor(color *theColor);
@@ -2621,10 +2621,10 @@ extern "C" {
 						  item *parentSpawnedItems[50],
 						  creature *parentSpawnedMonsters[50]);
     void attachRooms(short **grid, const dungeonProfile *theDP, short attempts, short maxRoomCount);
-	void digDungeon();
-	void updateMapToShore();
+	void digDungeon(void);
+	void updateMapToShore(void);
 	short levelIsDisconnectedWithBlockingMap(char blockingMap[DCOLS][DROWS], boolean countRegionSize);
-	void resetDFMessageEligibility();
+	void resetDFMessageEligibility(void);
 	boolean fillSpawnMap(enum dungeonLayers layer,
 						 enum tileType surfaceTileType,
 						 char spawnMap[DCOLS][DROWS],
@@ -2635,7 +2635,7 @@ extern "C" {
 	void restoreMonster(creature *monst, short **mapToStairs, short **mapToPit);
 	void restoreItem(item *theItem);
     void refreshWaypoint(short wpIndex);
-	void setUpWaypoints();
+	void setUpWaypoints(void);
 	void zeroOutGrid(char grid[DCOLS][DROWS]);
 	short oppositeDirection(short theDir);
 
@@ -2644,23 +2644,23 @@ extern "C" {
 				  short backRed, short backGreen, short backBlue,
 				  short foreRed, short foreGreen, short foreBlue);
 	boolean pauseForMilliseconds(short milliseconds);
-    boolean isApplicationActive();
+    boolean isApplicationActive(void);
 	void nextKeyOrMouseEvent(rogueEvent *returnEvent, boolean textInput, boolean colorsDance);
-	boolean controlKeyIsDown();
-	boolean shiftKeyIsDown();
+	boolean controlKeyIsDown(void);
+	boolean shiftKeyIsDown(void);
 	short getHighScoresList(rogueHighScoresEntry returnList[HIGH_SCORES_COUNT]);
 	boolean saveHighScore(rogueHighScoresEntry theEntry);
-	void initializeBrogueSaveLocation();
+	void initializeBrogueSaveLocation(void);
 	fileEntry *listFiles(short *fileCount, char **dynamicMemoryBuffer);
 	void initializeLaunchArguments(enum NGCommands *command, char *path, unsigned long *seed);
 	
 	char nextKeyPress(boolean textInput);
 	void refreshSideBar(short focusX, short focusY, boolean focusedEntityMustGoFirst);
-	void printHelpScreen();
-	void printDiscoveriesScreen();
+	void printHelpScreen(void);
+	void printDiscoveriesScreen(void);
 	void printHighScores(boolean hiliteMostRecent);
 	void displayGrid(short **map);
-	void printSeed();
+	void printSeed(void);
 	void printProgressBar(short x, short y, const char barLabel[COLS], long amtFilled, long amtMax, color *fillColor, boolean dim);
 	short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight);
     void describeHallucinatedItem(char *buf);
@@ -2682,8 +2682,8 @@ extern "C" {
 	void displayCenteredAlert(char *message);
 	void flashMessage(char *message, short x, short y, int time, color *fColor, color *bColor);
 	void flashTemporaryAlert(char *message, int time);
-	void waitForAcknowledgment();
-	void waitForKeystrokeOrMouseClick();
+	void waitForAcknowledgment(void);
+	void waitForKeystrokeOrMouseClick(void);
 	boolean confirm(char *prompt, boolean alsoDuringPlayback);
 	void refreshDungeonCell(short x, short y);
 	void applyColorMultiplier(color *baseColor, const color *multiplierColor);
@@ -2705,10 +2705,10 @@ extern "C" {
 	void plotCharWithColor(uchar inputChar, short xLoc, short yLoc, const color *cellForeColor, const color *cellBackColor);
 	void plotCharToBuffer(uchar inputChar, short x, short y, color *foreColor, color *backColor, cellDisplayBuffer dbuf[COLS][ROWS]);
     void plotForegroundChar(uchar inputChar, short x, short y, color *foreColor, boolean affectedByLighting);
-	void commitDraws();
-	void dumpLevelToScreen();
+	void commitDraws(void);
+	void dumpLevelToScreen(void);
 	void hiliteCharGrid(char hiliteCharGrid[DCOLS][DROWS], color *hiliteColor, short hiliteStrength);
-	void blackOutScreen();
+	void blackOutScreen(void);
     void colorOverDungeon(const color *color);
 	void copyDisplayBuffer(cellDisplayBuffer toBuf[COLS][ROWS], cellDisplayBuffer fromBuf[COLS][ROWS]);
 	void clearDisplayBuffer(cellDisplayBuffer dbuf[COLS][ROWS]);
@@ -2728,18 +2728,18 @@ extern "C" {
 							   const char *promptSuffix,
 							   short textEntryType,
 							   boolean useDialogBox);
-	void displayChokeMap();
-	void displayLoops();
+	void displayChokeMap(void);
+	void displayLoops(void);
 	boolean pauseBrogue(short milliseconds);
 	void nextBrogueEvent(rogueEvent *returnEvent, boolean textInput, boolean colorsDance, boolean realInputEvenInPlayback);
 	void executeMouseClick(rogueEvent *theEvent);
 	void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKey);
-	void initializeLevel();
+	void initializeLevel(void);
 	void startLevel (short oldLevelNumber, short stairDirection);
-	void updateMinersLightRadius();
+	void updateMinersLightRadius(void);
 	void freeCreature(creature *monst);
-	void emptyGraveyard();
-	void freeEverything();
+	void emptyGraveyard(void);
+	void freeEverything(void);
 	boolean randomMatchingLocation(short *x, short *y, short dungeonType, short liquidType, short terrainType);
 	enum dungeonLayers highestPriorityLayer(short x, short y, boolean skipGas);
     enum dungeonLayers layerWithTMFlag(short x, short y, unsigned long flag);
@@ -2752,8 +2752,8 @@ extern "C" {
     void useKeyAt(item *theItem, short x, short y);
 	void playerRuns(short direction);
 	void exposeCreatureToFire(creature *monst);
-	void updateFlavorText();
-    void updatePlayerUnderwaterness();
+	void updateFlavorText(void);
+    void updatePlayerUnderwaterness(void);
     boolean monsterShouldFall(creature *monst);
 	void applyInstantTileEffectsToCreature(creature *monst);
 	void vomit(creature *monst);
@@ -2779,53 +2779,53 @@ extern "C" {
                           unsigned long *tFlags, unsigned long *TMFlags, unsigned long *cellFlags,
                           const boolean limitToPlayerKnowledge);
 	void populateCreatureCostMap(short **costMap, creature *monst);
-    enum directions adjacentFightingDir();
+    enum directions adjacentFightingDir(void);
 	void getExploreMap(short **map, boolean headingToStairs);
 	boolean explore(short frameDelay);
     short getPlayerPathOnMap(short path[1000][2], short **map, short originX, short originY);
     void reversePath(short path[1000][2], short steps);
     void hilitePath(short path[1000][2], short steps, boolean unhilite);
-	void clearCursorPath();
-    void hideCursor();
-    void showCursor();
-	void mainInputLoop();
+	void clearCursorPath(void);
+    void hideCursor(void);
+    void showCursor(void);
+	void mainInputLoop(void);
 	boolean isDisturbed(short x, short y);
 	void discover(short x, short y);
 	short randValidDirectionFrom(creature *monst, short x, short y, boolean respectAvoidancePreferences);
     boolean exposeTileToElectricity(short x, short y);
 	boolean exposeTileToFire(short x, short y, boolean alwaysIgnite);
 	boolean cellCanHoldGas(short x, short y);
-	void monstersFall();
-	void updateEnvironment();
-	void updateAllySafetyMap();
-	void updateSafetyMap();
-	void updateSafeTerrainMap();
+	void monstersFall(void);
+	void updateEnvironment(void);
+	void updateAllySafetyMap(void);
+	void updateSafetyMap(void);
+	void updateSafeTerrainMap(void);
     short staffChargeDuration(const item *theItem);
     void rechargeItemsIncrementally(short multiplier);
 	void extinguishFireOnCreature(creature *monst);
-	void autoRest();
-    void manualSearch();
+	void autoRest(void);
+    void manualSearch(void);
 	boolean startFighting(enum directions dir, boolean tillDeath);
 	void autoFight(boolean tillDeath);
-    void synchronizePlayerTimeState();
+    void synchronizePlayerTimeState(void);
     void playerRecoversFromAttacking(boolean anAttackHit);
-	void playerTurnEnded();
-	void resetScentTurnNumber();
+	void playerTurnEnded(void);
+	void resetScentTurnNumber(void);
 	void displayMonsterFlashes(boolean flashingEnabled);
-	void displayMessageArchive();
+	void displayMessageArchive(void);
 	void temporaryMessage(char *msg1, boolean requireAcknowledgment);
 	void messageWithColor(char *msg, color *theColor, boolean requireAcknowledgment);
 	void flavorMessage(char *msg);
 	void message(const char *msg, boolean requireAcknowledgment);
-    void displayMoreSignWithoutWaitingForAcknowledgment();
-	void displayMoreSign();
+    void displayMoreSignWithoutWaitingForAcknowledgment(void);
+	void displayMoreSign(void);
 	short encodeMessageColor(char *msg, short i, const color *theColor);
 	short decodeMessageColor(const char *msg, short i, color *returnColor);
 	color *messageColorFromVictim(creature *monst);
 	void upperCase(char *theChar);
-	void updateMessageDisplay();
-	void deleteMessages();
-	void confirmMessages();
+	void updateMessageDisplay(void);
+	void deleteMessages(void);
+	void confirmMessages(void);
 	void stripShiftFromMovementKeystroke(signed long *keystroke);
 	
     void storeMemories(const short x, const short y);
@@ -2857,7 +2857,7 @@ extern "C" {
 	unsigned long forbiddenFlagsForMonster(creatureType *monsterType);
     unsigned long avoidedFlagsForMonster(creatureType *monsterType);
 	boolean monsterCanSubmergeNow(creature *monst);
-	void populateMonsters();
+	void populateMonsters(void);
 	void updateMonsterState(creature *monst);
 	void decrementMonsterStatus(creature *monst);
 	boolean specifiedPathBetween(short x1, short y1, short x2, short y2,
@@ -2874,7 +2874,7 @@ extern "C" {
     boolean monsterFleesFrom(creature *monst, creature *defender);
 	void monstersTurn(creature *monst);
     boolean getRandomMonsterSpawnLocation(short *x, short *y);
-	void spawnPeriodicHorde();
+	void spawnPeriodicHorde(void);
 	void clearStatus(creature *monst);
 	void moralAttack(creature *attacker, creature *defender);
 	short runicWeaponChance(item *theItem, boolean customEnchantLevel, int64_t enchantLevel);
@@ -2957,10 +2957,10 @@ extern "C" {
 					   boolean targetCanLeaveMap);
     void identifyItemKind(item *theItem);
     void autoIdentify(item *theItem);
-	short numberOfItemsInPack();
-	char nextAvailableInventoryCharacter();
+	short numberOfItemsInPack(void);
+	char nextAvailableInventoryCharacter(void);
     void checkForDisenchantment(item *theItem);
-    void updateFloorItems();
+    void updateFloorItems(void);
 	void itemName(item *theItem, char *root, boolean includeDetails, boolean includeArticle, color *baseColor);
 	char displayInventory(unsigned short categoryMask,
 						  unsigned long requiredFlags,
@@ -2971,14 +2971,14 @@ extern "C" {
 									unsigned long requiredFlags, unsigned long forbiddenFlags,
 									boolean displayErrors);
 	void clearInventory(char keystroke);
-    item *initializeItem();
+    item *initializeItem(void);
 	item *generateItem(unsigned short theCategory, short theKind);
 	short chooseKind(itemTable *theTable, short numKinds);
 	item *makeItemInto(item *theItem, unsigned long itemCategory, short itemKind);
-	void updateEncumbrance();
-    short displayedArmorValue();
+	void updateEncumbrance(void);
+    short displayedArmorValue(void);
 	void strengthCheck(item *theItem);
-	void recalculateEquipmentBonuses();
+	void recalculateEquipmentBonuses(void);
 	void equipItem(item *theItem, boolean force);
 	void equip(item *theItem);
 	item *keyInPackFor(short x, short y);
@@ -3000,7 +3000,7 @@ extern "C" {
 									 boolean deterministic);
     
     // Grid operations
-	short **allocGrid();
+	short **allocGrid(void);
 	void freeGrid(short **array);
 	void copyGrid(short **to, short **from);
 	void fillGrid(short **grid, short fillValue);
@@ -3038,14 +3038,14 @@ extern "C" {
 	void apply(item *theItem, boolean recordCommands);
 	boolean itemCanBeCalled(item *theItem);
 	void call(item *theItem);
-	short chooseVorpalEnemy();
+	short chooseVorpalEnemy(void);
     void describeMonsterClass(char *buf, const short classID, boolean conjunctionAnd);
 	void identify(item *theItem);
 	void updateIdentifiableItem(item *theItem);
-	void updateIdentifiableItems();
+	void updateIdentifiableItems(void);
 	void readScroll(item *theItem);
-	void updateRingBonuses();
-	void updatePlayerRegenerationDelay();
+	void updateRingBonuses(void);
+	void updatePlayerRegenerationDelay(void);
 	boolean removeItemFromChain(item *theItem, item *theChain);
     void addItemToChain(item *theItem, item *theChain);
 	void drinkPotion(item *theItem);
@@ -3067,23 +3067,23 @@ extern "C" {
 	boolean itemIsCarried(item *theItem);
 	void itemDetails(char *buf, item *theItem);
 	void deleteItem(item *theItem);
-	void shuffleFlavors();
+	void shuffleFlavors(void);
 	unsigned long itemValue(item *theItem);
 	short strLenWithoutEscapes(const char *str);
 	void combatMessage(char *theMsg, color *theColor);
-	void displayCombatText();
+	void displayCombatText(void);
 	void flashMonster(creature *monst, const color *theColor, short strength);
 	
     boolean paintLight(lightSource *theLight, short x, short y, boolean isMinersLight, boolean maintainShadows);
     void backUpLighting(short lights[DCOLS][DROWS][3]);
     void restoreLighting(short lights[DCOLS][DROWS][3]);
-	void updateLighting();
-	boolean playerInDarkness();
+	void updateLighting(void);
+	boolean playerInDarkness(void);
     flare *newFlare(lightSource *light, short x, short y, short changePerFrame, short limit);
     void createFlare(short x, short y, enum lightType lightIndex);
     void animateFlares(flare **flares, short count);
-    void deleteAllFlares();
-	void demoteVisibility();
+    void deleteAllFlares(void);
+	void demoteVisibility(void);
     void discoverCell(const short x, const short y);
 	void updateVision(boolean refreshDisplay);
 	void burnItem(item *theItem);
@@ -3091,30 +3091,30 @@ extern "C" {
     boolean circuitBreakersPreventActivation(short machineNumber);
 	void promoteTile(short x, short y, enum dungeonLayers layer, boolean useFireDF);
 	void autoPlayLevel(boolean fastForward);
-	void updateClairvoyance();
+	void updateClairvoyance(void);
     short scentDistance(short x1, short y1, short x2, short y2);
     short armorAggroAdjustment(item *theArmor);
-    short currentAggroValue();
+    short currentAggroValue(void);
 	
-	void initRecording();
-	void flushBufferToFile();
-	void fillBufferFromFile();
+	void initRecording(void);
+	void flushBufferToFile(void);
+	void fillBufferFromFile(void);
 	void recordEvent(rogueEvent *event);
 	void recallEvent(rogueEvent *event);
-	void pausePlayback();
-	void displayAnnotation();
-	void loadSavedGame();
+	void pausePlayback(void);
+	void displayAnnotation(void);
+	void loadSavedGame(void);
 	void recordKeystroke(uchar keystroke, boolean controlKey, boolean shiftKey);
 	void recordKeystrokeSequence(unsigned char *commandSequence);
 	void recordMouseClick(short x, short y, boolean controlKey, boolean shiftKey);
 	void OOSCheck(unsigned long x, short numberOfBytes);
-	void RNGCheck();
+	void RNGCheck(void);
 	void executePlaybackInput(rogueEvent *recordingInput);
 	void getAvailableFilePath(char *filePath, const char *defaultPath, const char *suffix);
     boolean characterForbiddenInFilename(const char theChar);
-	void saveGame();
-	void saveRecording();
-	void parseFile();
+	void saveGame(void);
+	void saveRecording(void);
+	void parseFile(void);
 	void RNGLog(char *message);
     
     short wandDominate(creature *monst);
@@ -3149,11 +3149,11 @@ extern "C" {
     int64_t fp_accuracyFraction(int64_t netEnchant);
     int64_t fp_defenseFraction(int64_t netDefense);
 	
-	void checkForDungeonErrors();
+	void checkForDungeonErrors(void);
 	
 	boolean dialogChooseFile(char *path, const char *suffix, const char *prompt);
 	void dialogAlert(char *message);
-	void mainBrogueJunction();
+	void mainBrogueJunction(void);
 	
 	void initializeButton(brogueButton *button);
 	void drawButtonsInState(buttonState *state);
